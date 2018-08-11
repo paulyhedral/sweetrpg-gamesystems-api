@@ -13,8 +13,8 @@ public func routes(_ router: Router) throws {
     
     // bearer / token auth protected routes
     let bearer = router.grouped(User.tokenAuthMiddleware())
-    let todoController = TodoController()
-    bearer.get("todos", use: todoController.index)
-    bearer.post("todos", use: todoController.create)
-    bearer.delete("todos", Todo.parameter, use: todoController.delete)
+//    let todoController = TodoController()
+//    bearer.get("todos", use: todoController.index)
+//    bearer.post("todos", use: todoController.create)
+//    bearer.delete("todos", Todo.parameter, use: todoController.delete)
 }

@@ -12,6 +12,9 @@ let package = Package(
         
         // 👤 Authentication and Authorization layer for Fluent.
         .package(url: "https://github.com/vapor/auth.git", from: "2.0.0"),
+
+        // JSON-API
+//        .package(url: "https://github.com/vapor-tools/vapor-jsonapi.git", .branch("master"))
     ],
     targets: [
         .target(name: "App", dependencies: ["Authentication", "FluentSQLite", "Vapor"]),
