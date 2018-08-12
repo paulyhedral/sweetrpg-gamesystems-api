@@ -1,13 +1,15 @@
 import Vapor
-import SecurityModel
+import GameSystemModel
 
 
 final class GameSystemController : RouteCollection {
-func boot(router : Router) throws {
 
-}
+    func boot(router : Router) throws {
+        // router.get(GameSystem.parameter, use: getGameSystemHandler)
+    }
 
-// func loginHandler(_ req : Request) throws -> Future<Token> {
+    //  func getGameSystemHandler(_ req : Request) throws -> Future<GameSystem> {
 
-// }
+    //  }
+
 }
