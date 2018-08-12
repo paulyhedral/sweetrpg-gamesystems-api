@@ -1,6 +1,8 @@
 import Authentication
 import FluentPostgreSQL
 import Vapor
+import GameSystemModel
+
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
@@ -24,7 +26,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
     /// Configure migrations
     var migrations = MigrationConfig()
-//    migrations.add(model: User.self, database: .sqlite)
+    migrations.add(model: GameSystem.self, database: .postgresql)
 //    migrations.add(model: UserToken.self, database: .sqlite)
 //    migrations.add(model: Todo.self, database: .sqlite)
     services.register(migrations)
@@ -34,7 +36,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 private func configureDatabase(_ services : inout Services) {
     // Get database environment
     let dbHostname = Environment.get("DATABASE_HOSTNAME") ?? "localhost"
-    let dbPort = Int(Environment.get("DATABASE_PORT") ?? "5432")
+    let dbPort = Int(Environment.get("DATABASE_PORT") ?? "5432") ?? 5432
     let dbName = Environment.get("DATABASE_NAME") ?? "sweetrpg"
     let dbUsername = Environment.get("DATABASE_USERNAME") ?? "sweetrpg"
     let dbPassword = Environment.get("DATABASE_PASSWORD") ?? "password"
@@ -45,11 +47,11 @@ private func configureDatabase(_ services : inout Services) {
                                             username: dbUsername,
                                             database: dbName,
                                             password: dbPassword)
-    let database = try PostgreSQLDatabase(config: dbConfig)
+    let database = PostgreSQLDatabase(config: dbConfig)
 
     // Register the configured SQLite database to the database config.
     var databases = DatabasesConfig()
-    databases.enableLogging(on: .postgresql)
+    // databases.enableLogging(on: .postgresql)
     databases.add(database: database, as: .postgresql)
     services.register(databases)
 
