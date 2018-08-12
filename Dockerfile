@@ -12,7 +12,6 @@ RUN ssh-keyscan -t rsa github.com 2>&1 > /root/.ssh/known_hosts
 RUN mv git_config $HOME/.ssh/config && \
     echo "${GITHUBKEY}" > $HOME/.ssh/id_rsa && \
     chmod 400 $HOME/.ssh/id_rsa
-RUN ls -l $HOME/.ssh
 RUN swift build
 
 FROM swift:4.1 AS deploy
@@ -20,6 +19,5 @@ FROM swift:4.1 AS deploy
 ADD Public /app/Public
 WORKDIR /app
 COPY --from=build /build/.build/x86_64-unknown-linux/debug/Run /app
-RUN ls -lR /app
 
 CMD [ "/app/Run" ]
