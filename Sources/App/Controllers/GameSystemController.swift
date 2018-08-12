@@ -1,8 +1,13 @@
-//
-//  GameSystemController.swift
-//  App
-//
-//  Created by Paul Schifferer on 8/11/18.
-//
+import Vapor
+import SecurityModel
 
-import Foundation
+
+final class GameSystemController : RouteCollection {
+func boot(router : Router) throws {
+
+}
+
+// func loginHandler(_ req : Request) throws -> Future<Token> {
+
+// }
+}
