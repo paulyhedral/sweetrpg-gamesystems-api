@@ -1,7 +1,6 @@
 import Authentication
 import FluentPostgreSQL
 import Vapor
-import GameSystemModel
 
 
 /// Called before your application initializes.
