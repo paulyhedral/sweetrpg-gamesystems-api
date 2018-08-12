@@ -17,4 +17,4 @@ import FluentPostgreSQL
 }
 }
 
-extension GameSystemModel : Migrations {}
+extension GameSystemModel : Migration {}
