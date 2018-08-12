@@ -2,7 +2,14 @@ version: '3'
 
 services:
   api:
-    build: .
+    build:
+      context: .
+      args:
+        - GITHUBKEY
+    environment:
+      POSTGRES_HOST: db
+    env_file:
+      - db.env
     networks:
       - sweetrpg
     depends_on:
@@ -10,10 +17,8 @@ services:
     restart: unless-stopped
   db:
     image: postgres
-    environment:
-      POSTGRES_DB: gamesystem
-      POSTGRES_USER: sweetrpg
-      POSTGRES_PASSWORD: password
+    env_file:
+      - db.env
     networks:
       - sweetrpg
     volumes:

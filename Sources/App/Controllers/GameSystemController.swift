@@ -1,5 +1,5 @@
 import Vapor
-import GameSystemModel
+import GameSystemObjects
 
 
 final class GameSystemController : RouteCollection {
