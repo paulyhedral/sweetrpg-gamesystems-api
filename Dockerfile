@@ -20,4 +20,5 @@ ADD Public /app/Public
 WORKDIR /app
 COPY --from=build /build/.build/x86_64-unknown-linux/debug/Run /app
 
+EXPOSE 8080
 CMD [ "/app/Run" ]
