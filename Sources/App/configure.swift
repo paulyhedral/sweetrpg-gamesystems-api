@@ -28,7 +28,7 @@ configureMigrations(&services)
 
 private func configureDatabase(_ services : inout Services) {
     // Get database environment
-    let dbHostname = Environment.get("POSTGRES_HOSTNAME") ?? "localhost"
+    let dbHostname = Environment.get("POSTGRES_HOST") ?? "localhost"
     let dbName = Environment.get("POSTGRES_DB") ?? "sweetrpg"
     let dbUsername = Environment.get("POSTGRES_USER") ?? "sweetrpg"
     let dbPassword = Environment.get("POSTGRES_PASSWORD") ?? "password"
