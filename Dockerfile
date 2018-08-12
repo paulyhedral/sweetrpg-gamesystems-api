@@ -14,7 +14,7 @@ RUN mv git_config $HOME/.ssh/config && \
     chmod 400 $HOME/.ssh/id_rsa
 RUN swift build
 
-FROM swift:4.1 AS deploy
+FROM swift:4.1 AS runtime
 
 ADD Public /app/Public
 WORKDIR /app
