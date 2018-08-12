@@ -119,11 +119,11 @@
         }
       },
       {
-        "package": "GameSystemModel",
-        "repositoryURL": "/Volumes/Snowbourn/Projects/Pilgrimage/sweetrpg-gamesystem-model",
+        "package": "GameSystemObjects",
+        "repositoryURL": "ssh://git@github.com/paulyhedral/sweetrpg-gamesystem-objects.git",
         "state": {
           "branch": "develop",
-          "revision": "f4b67006de3e85f44ce5a11f86147635822733d8",
+          "revision": "a2d7bba166417422f1ec1dabf246878a7a4d3eaf",
           "version": null
         }
       },
