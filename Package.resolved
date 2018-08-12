@@ -123,7 +123,7 @@
         "repositoryURL": "ssh://git@github.com/paulyhedral/sweetrpg-gamesystem-model.git",
         "state": {
           "branch": "develop",
-          "revision": "f31b430a5ec6a18df889124975cb1773aa9410c2",
+          "revision": "9741ca9769b31977caafeb87522a64e9fc18a4a6",
           "version": null
         }
       },
