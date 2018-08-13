@@ -1,11 +1,14 @@
 import Crypto
 import Vapor
+import Controllers
+
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
     // public routes
     let gameSystemController = GameSystemController()
     try router.register(collection: gameSystemController)
+    try HealthController.setup(router)
 
     // basic / password auth protected routes
     // let basic = router.grouped(User.basicAuthMiddleware(using: BCryptDigest()))

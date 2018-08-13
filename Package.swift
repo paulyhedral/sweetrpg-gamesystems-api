@@ -17,11 +17,12 @@ let package = Package(
         // JSON-API
     //    .package(url: "https://github.com/vapor-tools/vapor-jsonapi.git", .branch("master")),
 
-        // Model
+        // SweetRPG stuff
         .package(url: "ssh://git@github.com/paulyhedral/sweetrpg-gamesystem-objects.git", .branch("develop")),
+        .package(url: "ssh://git@github.com/paulyhedral/sweetrpg-controllers.git", .branch("develop")),
     ],
     targets: [
-        .target(name: "App", dependencies: ["FluentPostgreSQL", "Vapor", "GameSystemObjects", "Authentication"]),
+        .target(name: "App", dependencies: ["FluentPostgreSQL", "Vapor", "Controllers", "GameSystemObjects", "Authentication"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
