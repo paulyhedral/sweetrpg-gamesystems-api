@@ -1,39 +1,37 @@
-import Authentication
-import FluentSQLite
+//
+// configure.swift
+// Copyright (c) 2021 Paul Schifferer.
+//
+
+import Fluent
+import FluentMongoDriver
 import Vapor
+import Redis
+import Common
 
-/// Called before your application initializes.
-public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
-    // Register providers first
-    try services.register(FluentSQLiteProvider())
-    try services.register(AuthenticationProvider())
 
-    // Register routes to the router
-    let router = EngineRouter.default()
-    try routes(router)
-    services.register(router, as: Router.self)
+// configures your application
+public func configure(_ app : Application) throws {
+    // uncomment to serve files from /Public folder
+    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    app.middleware.use(app.sessions.middleware)
+    app.middleware.use(LogRequestMiddleware())
 
-    // Register middleware
-    var middlewares = MiddlewareConfig() // Create _empty_ middleware config
-    // middlewares.use(SessionsMiddleware.self) // Enables sessions.
-    // middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
-    middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
-    services.register(middlewares)
+    guard let dbUrl = Environment.get("DATABASE_URL") else {
+        fatalError("DATABASE_URL is not set in environment")
+    }
+    app.logger.debug("DATABASE_URL: \(dbUrl)")
+    try app.databases.use(.mongo(connectionString: dbUrl), as: .mongo)
 
-    // Configure a SQLite database
-    let sqlite = try SQLiteDatabase(storage: .memory)
+    let redisHostname = Environment.get("REDIS_HOSTNAME") ?? "localhost"
+    let redisConfig = try RedisConfiguration(hostname: redisHostname)
+    app.redis.configuration = redisConfig
 
-    // Register the configured SQLite database to the database config.
-    var databases = DatabasesConfig()
-    databases.enableLogging(on: .sqlite)
-    databases.add(database: sqlite, as: .sqlite)
-    services.register(databases)
+    try migrations(app)
 
-    /// Configure migrations
-    var migrations = MigrationConfig()
-    migrations.add(model: User.self, database: .sqlite)
-    migrations.add(model: UserToken.self, database: .sqlite)
-//    migrations.add(model: Todo.self, database: .sqlite)
-    services.register(migrations)
+    app.sessions.use(.redis)
+    app.caches.use(.fluent)
 
+    // register routes
+    try routes(app)
 }
